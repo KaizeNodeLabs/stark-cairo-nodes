@@ -24,18 +24,14 @@ fn main() {
     let number1: u128 = 22;
     let number2: u128 = 7;
 
-    // Sum example
-    println!("{} + {} = {}", number1, number2, sum(number1, number2));
-
-    // Subtract example
-    println!("{} - {} = {}", number1, number2, subtract(number1, number2));
-
-    // Multiply example
-    println!("{} * {} = {}", number1, number2, multiply(number1, number2));
-
-    // Divide example
-    println!("{} / {} = {} (in Cairo, division returns only the integer part, without decimals)", number1, number2, divide(number1, number2));
-
-    // Modulus example
-    println!("{} % {} = {}", number1, number2, modulus(number1, number2));
+    println!("\nSum example:          {} + {} = {}\n", number1, number2, sum(number1, number2));
+    println!("Subtract example:     {} - {} = {}\n", number1, number2, subtract(number1, number2));
+    println!("Multiply example:     {} * {} = {}\n", number1, number2, multiply(number1, number2));
+    println!(
+        "Divide example:       {} / {} = {} (in Cairo, division returns only the integer part, without decimals)\n",
+        number1,
+        number2,
+        divide(number1, number2)
+    );
+    println!("Modulus example:      {} % {} = {}\n", number1, number2, modulus(number1, number2));
 }
