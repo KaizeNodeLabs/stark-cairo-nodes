@@ -1,21 +1,12 @@
 # stark-cairo-nodes 🔗💡
 
-Set of scripts written in Cairo/Starknet to learn and teach newcomers the ecosystem.
-
-## Table of Contents
-- [Overview](#overview)
-- [Steps to Build and Run Cairo Scripts](#steps-to-build-and-run-cairo-scripts)
-  - [1. Set Up Your Environment](#1-set-up-your-environment)
-  - [2. Navigate to the Scripts Directory](#2-navigate-to-the-scripts-directory)
-  - [3. Build the Project](#3-build-the-project)
-  - [4. Run the Script](#4-run-the-script)
-## Overview
+## 📖 Overview
 
 **stark-cairo-nodes** is a collection of educational scripts built using the Cairo programming language, specifically designed for the Starknet ecosystem. These scripts are ideal for both beginners and intermediate developers looking to deepen their understanding of Cairo and Starknet concepts.
 
-## Steps to Build and Run Cairo Scripts
+## ⚙️ Steps to Build and Run Cairo Scripts
 
-### 1. **Set Up Your Environment**
+### 1. 🛠️ **Set Up Your Environment**
 
 - **Install Scarb**
 
@@ -37,7 +28,7 @@ Set of scripts written in Cairo/Starknet to learn and teach newcomers the ecosys
 scarb --version
 ```
 
-### 2. **Navigate to the Scripts Directory**
+### 2. 📂 **Navigate to the Scripts Directory**
 
 First, navigate to the general cairo/scripts/ directory:
 
@@ -51,7 +42,7 @@ Then, navigate to the specific script's directory you want to run. For example, 
 cd example_script
 ```
 
-### 3. **Build the Project**
+### 3. 🏗️ **Build the Project**
 
 Build the project with the following command:
 
@@ -59,7 +50,7 @@ Build the project with the following command:
 scarb build
 ```
 
-### 4. **Run the Script**
+### 4. 🚀 **Run the Script**
 
 To execute the main function of the script, use:
 
@@ -67,4 +58,4 @@ To execute the main function of the script, use:
 scarb cairo-run
 ```
 
-Give us a star! ⭐
+## Give us a star! ⭐
