@@ -3,16 +3,12 @@
 Set of scripts written in Cairo/Starknet to learn and teach newcomers the ecosystem.
 
 ## Table of Contents
-
-- [stark-cairo-nodes 🔗💡](#stark-cairo-nodes-)
-  - [Table of Contents](#table-of-contents)
-  - [Overview](#overview)
-  - [Steps to Build and Run Cairo Scripts](#steps-to-build-and-run-cairo-scripts)
-    - [1. **Set Up Your Environment**](#1-set-up-your-environment)
-    - [2. **Navigate to the Scripts Directory**](#2-navigate-to-the-scripts-directory)
-    - [3. **Build the Project**](#3-build-the-project)
-    - [4. **Run the Script**](#4-run-the-script)
-
+- [Overview](#overview)
+- [Steps to Build and Run Cairo Scripts](#steps-to-build-and-run-cairo-scripts)
+  - [1. Set Up Your Environment](#1-set-up-your-environment)
+  - [2. Navigate to the Scripts Directory](#2-navigate-to-the-scripts-directory)
+  - [3. Build the Project](#3-build-the-project)
+  - [4. Run the Script](#4-run-the-script)
 ## Overview
 
 **stark-cairo-nodes** is a collection of educational scripts built using the Cairo programming language, specifically designed for the Starknet ecosystem. These scripts are ideal for both beginners and intermediate developers looking to deepen their understanding of Cairo and Starknet concepts.
