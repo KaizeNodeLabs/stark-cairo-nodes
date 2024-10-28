@@ -31,7 +31,7 @@ Set of scripts written in Cairo/Starknet to learn and teach newcomers the ecosys
 
 - **Verify Scarb Installation**
 
-Confirm that Scarb is installed correctly by checking its version:
+  Confirm that Scarb is installed correctly by checking its version:
 
 ```bash
 scarb --version
