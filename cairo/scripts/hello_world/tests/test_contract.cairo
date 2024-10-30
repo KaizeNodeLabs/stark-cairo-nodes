@@ -12,10 +12,10 @@ fn deploy_contract(name: ByteArray) -> ContractAddress {
 
 #[test]
 fn test_get_hello_world() {
-    let contract_address = deploy_contract("Hello");
+    let contract_address = deploy_contract("SimpleHelloWorld");
 
     let dispatcher = ISimpleHelloWorldDispatcher { contract_address };
     dispatcher.set_hello_world();
     let result = dispatcher.get_hello_world();
-    assert(result == 'Hello world!', 'Something went wrong :(');
+    assert!(result == 'Hello world!', "Something went wrong :(");
 }
