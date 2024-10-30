@@ -17,5 +17,5 @@ fn test_get_hello_world() {
     let dispatcher = ISimpleHelloWorldDispatcher { contract_address };
     dispatcher.set_hello_world();
     let result = dispatcher.get_hello_world();
-    assert(result == "Hello world!", 'Something went wrong :(');
+    assert(result == 'Hello world!', 'Something went wrong :(');
 }
