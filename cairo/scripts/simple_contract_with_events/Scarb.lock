@@ -2,7 +2,7 @@
 version = 1
 
 [[package]]
-name = "events"
+name = "simple_contract_with_events"
 version = "0.1.0"
 dependencies = [
  "snforge_std",
