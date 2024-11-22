@@ -3,9 +3,7 @@ use snforge_std::{
     EventSpyAssertionsTrait, // Add for assertions on the EventSpy
 };
 
-use events::{
-    SpyEventsChecker, ISpyEventsCheckerDispatcher, ISpyEventsCheckerDispatcherTrait
-};
+use events::{SpyEventsChecker, ISpyEventsCheckerDispatcher, ISpyEventsCheckerDispatcherTrait};
 
 #[test]
 fn test_simple_assertions() {
