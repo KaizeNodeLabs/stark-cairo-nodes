@@ -1,18 +1,13 @@
-fn iterative_fibonacci(n: u128) -> u128 {
-    if (n < 2) {
-        return n;
-    }
+fn iterative_fibonacci(mut n: u128) -> u128 {
     let mut a: u128 = 0;
     let mut b: u128 = 1;
-    let mut i: u128 = 2;
-
-    while i <= n {
-        let temp = a + b;
-        a = b;
-        b = temp;
-        i += 1;
+    while n > 0 {
+        n -= 1;
+        let temp = b;
+        b = a + b;
+        a = temp;
     };
-    b
+    a
 }
 
 // For pedagogical purposes only. This recursive solution has O(2^n) complexity because
