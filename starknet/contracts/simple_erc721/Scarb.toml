@@ -7,10 +7,10 @@ edition = "2023_11"
 
 [dependencies]
 starknet = "2.8.4"
+openzeppelin = { git = "https://github.com/openzeppelin/cairo-contracts", tag="v0.18.0" }
 
 [dev-dependencies]
 snforge_std = { git = "https://github.com/foundry-rs/starknet-foundry", tag = "v0.30.0" }
-openzeppelin = { git = "https://github.com/openzeppelin/cairo-contracts", tag="v0.18.0" }
 
 [[target.starknet-contract]]
 sierra = true
