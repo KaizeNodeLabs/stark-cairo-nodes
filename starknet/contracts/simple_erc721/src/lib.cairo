@@ -15,6 +15,7 @@ pub trait IMyNFT<TState> {
     fn setApprovalForAll(ref self: TState, operator: ContractAddress, approved: bool);
     fn getApproved(self: @TState, token_id: u256) -> ContractAddress;
     fn isApprovedForAll(self: @TState, owner: ContractAddress, operator: ContractAddress) -> bool;
+    fn mint(ref self: TState, to: ContractAddress) -> u256;
 }
 
 #[starknet::contract]
@@ -43,6 +44,7 @@ pub mod MyNFT {
         erc721: ERC721Component::Storage,
         #[substorage(v0)]
         src5: SRC5Component::Storage,
+        nft_count: u256,
     }
 
     #[event]
@@ -56,9 +58,7 @@ pub mod MyNFT {
 
 
     #[constructor]
-    fn constructor(
-        ref self: ContractState, name: ByteArray, symbol: ByteArray, owner: ContractAddress
-    ) {
+    fn constructor(ref self: ContractState, name: ByteArray, symbol: ByteArray) {
         let base_uri = "v1/uri";
         self.erc721.initializer(name, symbol, base_uri);
     }
@@ -128,6 +128,19 @@ pub mod MyNFT {
             self: @ContractState, owner: ContractAddress, operator: ContractAddress
         ) -> bool {
             self.erc721.is_approved_for_all(owner, operator)
+        }
+
+        /// Mints `token_id`, transfers it to `to` and returns the 'token_id'.
+        fn mint(ref self: ContractState, to: ContractAddress) -> u256 {
+            let mut token_id = self.nft_count.read();
+
+            if token_id < 1 {
+                token_id += 1;
+            }
+
+            self.erc721.mint(to, token_id);
+            self.nft_count.write(token_id + 1);
+            token_id
         }
     }
 
