@@ -1,0 +1,39 @@
+📚 Overview:
+
+This guide will help beginners and intermediate developers build and run contracts with ease.
+
+⚒️ Building a contract
+
+🖥️ 1. Install Dependecies:
+scarb 
+Universal-Sierra-compiler 
+Rust >=1.80.1 
+
+You can install Scarb via:
+asdf 
+Snfoundryup 
+Windows 
+Source code.
+
+2. ✅ Once you're done, verify that scarb is installed correctly.
+
+3. 🏃 To start a new project, run 'snforge init'
+
+4.📑 To enable Starknet contract compilation, write this line in Scarb.toml 
+[[target.starknet-contract]]
+
+5. 👉 Declare a dependency on Starknet package with "[dependencies starknet = "2.8.5"
+
+
+🧪 Testing:
+
+1. ✅  The 'scarb test' command tests any local package.
+
+2. ✅  'scarb cairo-test' automatically enables Starknet-related testing features.
+
+3. 🏃 To use Starknet Foundry as the test runner, run 
+[scripts] test = "snforge test"
+
+4. 🚀 For custom and multiple tests, define the script and add the additional test.
+
+5. 🌟 Don't forget to give us a star!
