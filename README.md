@@ -58,4 +58,70 @@ To execute the main function of the script, use:
 scarb cairo-run
 ```
 
+
+## ⚙️ Steps to build and and test contracts
+
+### 1. 🛠️ **Set Up Your Environment** 
+
+- **Install Scarb**
+Before you can build and test Cairo contracts, you need to have Scarb, the official build tool for Cairo. 
+Install it with these steps:
+
+```bash
+asdf plugin add scarb
+asdf install scarb latest
+asdf global scarb latest
+```
+- **Install Install SnForge (Cairo Testing Framework)**
+SnForge is the tool used to run unit tests for Cairo contracts in the Starknet ecosystem. Install it by running:
+
+```bash
+pip install snforge
+```
+### 2. ✅ Verify Installations
+After installation, confirm that both tools are correctly installed by running:
+
+For Scarb:
+
+```bash
+scarb --version
+```
+
+For SnForge:
+
+```bash
+snforge --version
+```
+
+### 3. 📂 Navigate to the Contract Directory
+Proceed to the directory where your Cairo contract is located.
+
+Example:
+
+```bash
+cd path/to/your/cairo-contract-directory
+```
+
+### 4. 🏗️ Compile the Contract
+Use Scarb to compile your Cairo contract by running:
+
+```bash
+Copy code
+scarb build
+```
+This will generate the necessary artifacts for your Cairo contract.
+
+### 5. 🏃 Run Unit Tests with SnForge
+Once the contract is compiled, you can run unit tests using SnForge. .
+
+To run your contract's tests, use the following command:
+
+```bash
+snforge test
+```
+SnForge will automatically detect the test files in your project and run them.
+
+### 6. 🔁 Review Test Results
+After running the tests, you will see the results in your terminal. If the tests fail, the output will include details that will help you debug the issue. If everything passes, you’ll see confirmation that your contract is working as expected.
+
 ## Give us a star! ⭐
