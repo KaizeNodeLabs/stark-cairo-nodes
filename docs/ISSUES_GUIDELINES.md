@@ -36,7 +36,7 @@ Creating and managing issues effectively is key to maintaining a well-organized 
 
 2. **Follow the Issue Template**
 
-- If the repository has an issue template, fill it out completely.  
+    - If the repository has an issue template, fill it out completely.  
 **Include:**
 
     - **Steps to Reproduce** (for bugs).
@@ -46,7 +46,7 @@ Creating and managing issues effectively is key to maintaining a well-organized 
 
 3. **Be Specific and Clear**
 
-Avoid vague descriptions. Provide enough context for others to understand and reproduce the issue.
+    - Avoid vague descriptions. Provide enough context for others to understand and reproduce the issue.
 
 ---
 
