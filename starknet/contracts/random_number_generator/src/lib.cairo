@@ -22,10 +22,13 @@ pub trait IRandomNumberGeneratorContract<TContractState> {
 /// Simple contract for managing balance.
 #[starknet::contract]
 mod RandomNumberGeneratorContract {
-    use starknet::{get_block_info, contract_address_const, get_contract_address, get_caller_address};
+    use starknet::{get_block_info, contract_address_const, get_contract_address};
     use core::keccak::{keccak_u256s_be_inputs};
     use pragma_lib::abi::{IRandomnessDispatcher, IRandomnessDispatcherTrait};
     use openzeppelin_token::erc20::interface::{IERC20Dispatcher, IERC20DispatcherTrait};
+
+    const PRAGMA_VRF_ADDRESS: felt252 = 0x60c69136b39319547a4df303b6b3a26fab8b2d78de90b6bd215ce82e9cb515c;
+    const ETH_ADDRESS: felt252 = 0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7;
 
     #[storage]
     struct Storage {
@@ -60,36 +63,40 @@ mod RandomNumberGeneratorContract {
         }
         
         fn get_random_number_with_vrf(self: @ContractState) -> u64 {
-            let caller = get_caller_address();
             // Pragma VRF function contract
-            let randomness_contract_address = contract_address_const::<0x60c69136b39319547a4df303b6b3a26fab8b2d78de90b6bd215ce82e9cb515c>();
+            let randomness_contract_address = contract_address_const::<PRAGMA_VRF_ADDRESS>();
             let randomness_dispatcher = IRandomnessDispatcher { contract_address: randomness_contract_address };
 
             // Preparing params and environment
             let seed = 1;
-            let callback_fee_limit = 20000000000000000;
+            let callback_fee_limit = 20;
             let publish_delay = 1;
             let num_words = 1;
             let calldata:Array<felt252> = array![];
 
-            let eth_dispatcher = IERC20Dispatcher { contract_address: contract_address_const::<0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7>() };
-            let compute_fees = randomness_dispatcher.compute_premium_fee(caller);
+            // Approve the randomness contract to transfer the callback fee
+            // You would need to send some ETH to this contract first to cover the fees
+            let eth_dispatcher = IERC20Dispatcher {
+                contract_address: contract_address_const::<ETH_ADDRESS>() // ETH Contract Address
+            };
             eth_dispatcher
                 .approve(
                     randomness_contract_address,
-                    (callback_fee_limit + compute_fees + callback_fee_limit / 5).into()
-                ); 
+                    2000000000000000
+                );
+
+
             
             // submit request for random number
-            let number = randomness_dispatcher.request_random(
+            let id = randomness_dispatcher.request_random(
                 seed,
-                get_contract_address(),
+                get_contract_address(), // contract with function receive_random_words that will be called when Pragma gets the random number
                 callback_fee_limit,
                 publish_delay,
                 num_words,
                 calldata
             );
-            number
+            id
         }
         
     }
