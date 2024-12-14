@@ -10,15 +10,20 @@ pub trait IRandomNumberGeneratorContract<TContractState> {
     // It extracts the block number, timestamp, and sequencer address from the block info. 2
     // It combines these values by addition to create a "random" number. 2
     // Please note that this method is not truly random and should not be used for any security-critical applications or where fairness is important.
-    fn get_random_number_with_block_data(self: @TContractState) -> u256;
+    fn get_random_number_with_block_data(self: @TContractState, entropy_injector:u256) -> u256;
     //
     fn get_random_number_with_vrf(self: @TContractState) -> u64;
+    //
+    fn get_random_number_with_user_entropy(self: @TContractState, entropy_injector:Array<u256>) -> u256;
+    //
+    fn get_random_number_with_keccak256(self: @TContractState, entropy_injector:u256) -> u256;     
 }
 
 /// Simple contract for managing balance.
 #[starknet::contract]
 mod RandomNumberGeneratorContract {
     use starknet::{get_block_info, contract_address_const, get_contract_address, get_caller_address};
+    use core::keccak::{keccak_u256s_be_inputs};
     use pragma_lib::abi::{IRandomnessDispatcher, IRandomnessDispatcherTrait};
     use openzeppelin_token::erc20::interface::{IERC20Dispatcher, IERC20DispatcherTrait};
 
@@ -29,13 +34,29 @@ mod RandomNumberGeneratorContract {
 
     #[abi(embed_v0)]
     impl RandomNumberGeneratorContractImpl of super::IRandomNumberGeneratorContract<ContractState> {
-        fn get_random_number_with_block_data(self: @ContractState) -> u256 {
+        fn get_random_number_with_block_data(self: @ContractState, entropy_injector:u256) -> u256 {
             let block_info = get_block_info().unbox();
             let block_number = block_info.block_number;
             let block_timestamp = block_info.block_timestamp;
 
-            let random_number = block_number + block_timestamp;
-            random_number.into()
+            let random_number = (block_number + block_timestamp);
+            random_number.into() % entropy_injector
+        }
+
+        fn get_random_number_with_keccak256(self: @ContractState, entropy_injector:u256) -> u256 {
+            let block_info = get_block_info().unbox();
+            let block_number = block_info.block_number;
+            let block_timestamp = block_info.block_timestamp;
+
+            let inputs:Array<u256> = array![block_number.into(), block_timestamp.into()];
+            
+            let random_number = keccak_u256s_be_inputs(inputs.span()) % entropy_injector;
+            random_number
+        }
+
+        fn get_random_number_with_user_entropy(self: @ContractState, entropy_injector:Array<u256>) -> u256 {
+            let number = keccak_u256s_be_inputs(entropy_injector.span());
+            number % *entropy_injector.at(0)
         }
         
         fn get_random_number_with_vrf(self: @ContractState) -> u64 {

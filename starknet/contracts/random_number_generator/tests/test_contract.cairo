@@ -14,11 +14,30 @@ fn deploy_contract() -> ContractAddress {
 fn test_get_random_number_with_block_data() {
     let contract_address = deploy_contract();
     let dispatcher = IRandomNumberGeneratorContractDispatcher { contract_address };
-    let number = dispatcher.get_random_number_with_block_data();
+    let entropy_injector = 356; // any random value 
+    let number = dispatcher.get_random_number_with_block_data(entropy_injector);
     println!("number --> {}", number);
 }
 
 #[test]
+fn get_random_number_with_keccak256() {
+    let contract_address = deploy_contract();
+    let dispatcher = IRandomNumberGeneratorContractDispatcher { contract_address };
+    let entropy_injector = 356; // any random value 
+    let number = dispatcher.get_random_number_with_keccak256(entropy_injector);
+    println!("number --> {}", number);
+}
+
+#[test]
+fn get_random_number_with_user_entropy() {
+    let contract_address = deploy_contract();
+    let dispatcher = IRandomNumberGeneratorContractDispatcher { contract_address };
+    let entropy_injector = array![345,231,535,6566]; // any random values 
+    let number = dispatcher.get_random_number_with_user_entropy(entropy_injector);
+    println!("number --> {}", number);
+}
+
+// #[test]
 // #[fork(url: "https://starknet-sepolia.public.blastapi.io/rpc/v0_7", block_number: 388337)]
 fn get_random_number_with_block_data() {
     let contract_address = deploy_contract();
