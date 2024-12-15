@@ -18,8 +18,7 @@ This guide provides step-by-step instructions for deploying smart contracts on S
 Ensure you have the following before starting:
 - **Remix IDE**: [Access Remix IDE](https://remix.ethereum.org/)
 - Starknet Wallet (Argent X or Braavos).
-- Node.js and npm installed for local testing.
-- Access to this repository's contract files.
+- Access to the `stark-cairo-nodes` repository: [GitHub Repo](https://github.com/KaizeNodeLabs/stark-cairo-nodes).
 
 ## 🔌 2. Installing the Starknet Plugin
 Follow these steps to install the `Starknet` plugin on Remix IDE:
@@ -27,6 +26,7 @@ Follow these steps to install the `Starknet` plugin on Remix IDE:
 1. Open **Remix IDE**.
 2. Navigate to the **Plugin Manager**.
 3. Search for **Starknet** and click "Activate".
+4. Click to **Install** the plugin.
 
 Once activated, you will see a Starknet tab in Remix.
 
@@ -34,17 +34,37 @@ Once activated, you will see a Starknet tab in Remix.
 To compile contracts in Remix using the Starknet plugin:
 
 1. Open the **Starknet** tab.
-2. Select the contract file (`contract.cairo`) from the repository.
+2. In the File Explorer, navigate to the `contracts/helloWorld/hello_world.cairo` file from the repository.
 3. Click **Compile** to generate the compiled artifacts.
 
-**Example file for compilation:**
-```cairo
-// contracts/ExampleContract.cairo
-%lang starknet
+#### **Example Contract: `helloWorld`**
+Here is the `HelloWorld` contract used in this guide:
 
-@external
-func example_function(){
-    return ();
+```rust
+#[starknet::interface] 
+pub trait ISimpleHelloWorld<TContractState> {
+    fn get_hello_world(self: @TContractState) -> felt252;
+    fn set_hello_world(ref self: TContractState);
+}
+
+#[starknet::contract]
+pub mod SimpleHelloWorld {
+    use core::starknet::storage::{StoragePointerReadAccess, StoragePointerWriteAccess};
+    #[storage]
+    struct Storage {
+        stored_data: felt252
+    }
+
+    #[abi(embed_v0)]
+    impl SimpleHelloWorld of super::ISimpleHelloWorld<ContractState> {
+        fn set_hello_world(ref self: ContractState) {
+            self.stored_data.write('Hello world!')
+        }
+
+        fn get_hello_world(self: @ContractState) -> felt252 {
+            self.stored_data.read()
+        }
+    }
 }
 ```
 
@@ -53,7 +73,7 @@ func example_function(){
 ## 🚢 4. Deploying Contracts
 Steps to deploy a compiled contract:
 
-1. Open the **Starknet** tab.
+1. Open the Starknet `tab` in Remix IDE.
 2. Navigate to the **Deployment** section.
 3. Connect your Starknet wallet (Argent X).
 4. Upload the compiled contract and click **Deploy**.
@@ -61,26 +81,49 @@ Steps to deploy a compiled contract:
 
 After deployment, you will receive a **Contract Address**.
 
-## 📄 5. Example Deployment
-To demonstrate, we deploy the `ExampleContract.cairo` from this repository:
+---
 
-1. Compile the contract:
-   ```bash
-   starknet-compile contracts/ExampleContract.cairo --output example_compiled.json --abi example_abi.json
-   ```
-2. Deploy the contract:
-   ```bash
-   starknet deploy --contract example_compiled.json --network testnet
-   ```
-3. Result:
-   ```plaintext
-   Contract address: 0x0123456789ABCDEF...
-   ```
+## 📄 5. Example Deployment
+**To demonstrate, we deploy the `HelloWorld` from this repository:**
+
+1. **Compile the Contract:** 
+```bash
+Open the `HelloWorld` contract in Remix and click Compile in the Starknet tab.
+```
+
+2. **Connect Your Wallet:** 
+```bash
+Use the Connect Wallet button to link your Starknet wallet (Argent X).
+```
+
+3. **Deploy the Contract:** 
+```bash
+In the Deployment section of the Starknet tab, select the compiled SimpleHelloWorld contract and click Deploy.
+```
+
+4. **Deployment Result:** Once the deployment succeeds, a message will show a contract address:
+```rust
+Contract address: 0x0123456789ABCDEF
+```
+
+5. **Interact with the Contract:**
+```bash
+ Use the functions set_hello_world and get_hello_world to test the contract.
+ ```
+
 
 ## 🔗 6. Troubleshooting Tips
-- **Compilation errors**: Check syntax and ensure you are using a compatible Starknet version.
-- **Wallet connection issues**: Refresh the wallet extension and Remix IDE.
-- **Deployment failure**: Verify your wallet balance and network configuration.
+- **Compilation errors**: 
+  - Ensure the contract is written in the correct Starknet-compatible syntax.
+  - Update the Starknet plugin to the latest version if needed.
+
+- **Wallet connection issues**:
+  - Refresh both Remix IDE and your wallet extension.
+  - Confirm that your wallet is connected to the correct network (Testnet or Mainnet).
+  
+- **Deployment failure**:
+  - Check if you have sufficient balance for deployment fees.
+  - Double-check your network configuration in the wallet.
 
 ---
 
