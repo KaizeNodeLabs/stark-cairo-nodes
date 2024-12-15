@@ -8,6 +8,28 @@
 
 ### 1. 🛠️ **Set Up Your Environment**
 
+- **Install Cargo**
+
+  Scarb, the official build tool for Cairo, relies on Cargo as a dependency. Cargo is included with the Rust programming language. Follow these steps to install Cargo:
+
+  Visit the [Rust installation page](https://doc.rust-lang.org/cargo/getting-started/installation.html) and follow the instructions to install Rust, which includes Cargo.
+
+   Alternatively, use the appropriate command for your operating system
+    - **Linux and macOS**
+      ```bash
+      curl https://sh.rustup.rs -sSf | sh
+      ```
+    - **Windows**
+      Download and run the installer from the [official Rust website](https://www.rust-lang.org/tools/install).
+
+- **Verify Cargo Installation**
+
+  Confirm that Cargo is installed by checking its version:
+
+```bash
+cargo --version
+```
+   
 - **Install Scarb**
 
   Please refer to the [asdf documentation](https://asdf-vm.com/guide/getting-started.html) to install all prerequisites
@@ -62,6 +84,28 @@ scarb cairo-run
 ## ⚙️ Steps to build and and test contracts
 
 ### 1. 🛠️ **Set Up Your Environment** 
+
+- **Install Cargo**
+
+  Scarb, the official build tool for Cairo, relies on Cargo as a dependency. Cargo is included with the Rust programming language. Follow these steps to install Cargo:
+
+  Visit the [Rust installation page](https://doc.rust-lang.org/cargo/getting-started/installation.html) and follow the instructions to install Rust, which includes Cargo.
+
+   Alternatively, use the appropriate command for your operating system
+    - **Linux and macOS**
+      ```bash
+      curl https://sh.rustup.rs -sSf | sh
+      ```
+    - **Windows**
+      Download and run the installer from the [official Rust website](https://www.rust-lang.org/tools/install).
+
+- **Verify Cargo Installation**
+
+  Confirm that Cargo is installed by checking its version:
+
+```bash
+cargo --version
+```
 
 - **Install Scarb**
 Before you can build and test Cairo contracts, you need to have Scarb, the official build tool for Cairo. 
