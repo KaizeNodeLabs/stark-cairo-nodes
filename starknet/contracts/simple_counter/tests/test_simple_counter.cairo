@@ -15,7 +15,7 @@ fn test_get_count() {
     let contract_address = deploy_contract("SimpleCounter");
     let dispatcher = ISimpleCounterDispatcher { contract_address };
     dispatcher.increase_count();
-    assert!(dispatcher.get_count() == 1, "Wrong count";
+    assert!(dispatcher.get_count() == 1, "Wrong count");
 }
 
 #[test]
@@ -23,7 +23,7 @@ fn test_increase_count() {
     let contract_address = deploy_contract("SimpleCounter");
     let dispatcher = ISimpleCounterDispatcher { contract_address };
     dispatcher.increase_count();
-    assert!(dispatcher.get_count() == 1, "Wrong count";
+    assert!(dispatcher.get_count() == 1, "Wrong count");
 }
 
 #[test]
@@ -32,5 +32,5 @@ fn test_decrease_count() {
     let dispatcher = ISimpleCounterDispatcher { contract_address };
     dispatcher.increase_count();
     dispatcher.decrease_count();
-    assert!(dispatcher.get_count() == 0, "Wrong count";
+    assert!(dispatcher.get_count() == 0, "Wrong count");
 }
