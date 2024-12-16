@@ -2,7 +2,7 @@ use starknet::ContractAddress;
 
 use snforge_std::{declare, ContractClassTrait, DeclareResultTrait};
 
-use simple_counter::simple_counter::{ISimpleCounter, ISimpleCounterDispatcherTrait};
+use simple_counter::simple_counter::{ISimpleCounterDispatcher, ISimpleCounterDispatcherTrait};
 
 fn deploy_contract(name: ByteArray) -> ContractAddress {
     let contract = declare(name).unwrap().contract_class();
