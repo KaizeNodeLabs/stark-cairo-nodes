@@ -75,4 +75,6 @@ Here's a breakdown of how to use the **CounterAccessControl** contract:
 
 - This contract supports upgrades using [proxy pattern](https://docs.openzeppelin.com/upgrades/4.8/proxies)
 
-- Refer to this link for all the necessary installations [asdf documentation](https://asdf-vm.com/guide/getting-started.html)
+## Note:
+
+Refer to this link for all the necessary installations [asdf documentation](https://asdf-vm.com/guide/getting-started.html)
