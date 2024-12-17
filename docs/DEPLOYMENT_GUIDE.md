@@ -33,9 +33,24 @@ Once activated, you will see a Starknet tab in Remix.
 ## 🛠️ 3. Compiling Smart Contracts
 To compile contracts in Remix using the Starknet plugin:
 
-1. Open the **Starknet** tab.
-2. In the File Explorer, navigate to the `contracts/helloWorld/hello_world.cairo` file from the repository.
-3. Click **Compile** to generate the compiled artifacts.
+**Open Remix IDE** and create a new workspace:
+   - In the **File Explorer**, click **Create** → **New Workspace**.
+   - Name the workspace as needed.
+
+2. **Create a New File**:
+   - Within the new workspace, click **New File**.
+   - Name the file `hello_world.cairo`.
+
+3. **Copy and Paste the Contract Code**:
+   - Go to the [`stark-cairo-nodes`](https://github.com/KaizeNodeLabs/stark-cairo-nodes) repository.
+   - Navigate to `contracts/helloWorld/hello_world.cairo`.
+   - Copy the contents of the file.
+   - Paste the code into the new `hello_world.cairo` file in Remix.
+
+4. **Compile the Contract**:
+   - Select the `hello_world.cairo` file in the File Explorer.
+   - Open the **Starknet** tab in Remix IDE.
+   - Click **Compile** to generate the compiled artifacts.
 
 #### **Example Contract: `helloWorld`**
 Here is the `HelloWorld` contract used in this guide:
