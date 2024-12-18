@@ -1,0 +1,123 @@
+#[starknet::interface]
+pub trait IRandomNumberGeneratorContract<TContractState> {
+    fn get_random_number_with_block_data(self: @TContractState, entropy_injector: u256) -> u256;
+    fn get_random_number_with_user_entropy(
+        self: @TContractState, entropy_injector: Array<u256>,
+    ) -> u256;
+    fn get_random_number_with_keccak256(self: @TContractState, entropy_injector: u256) -> u256;
+    // Pragma VRF functions
+    fn get_random_number_with_vrf(self: @TContractState) -> u64;
+    fn receive_random_words(
+        self: @TContractState,
+        requestor_address: starknet::ContractAddress,
+        request_id: u64,
+        random_words: Span<felt252>,
+        calldata: Array<felt252>,
+    ) -> u256;
+}
+
+#[starknet::contract]
+mod RandomNumberGeneratorContract {
+    use starknet::{
+        get_block_info, contract_address_const, get_contract_address, get_caller_address,
+    };
+    use core::keccak::{keccak_u256s_be_inputs};
+    use pragma_lib::abi::{IRandomnessDispatcher, IRandomnessDispatcherTrait};
+    use openzeppelin_token::erc20::interface::{IERC20Dispatcher, IERC20DispatcherTrait};
+
+    const PRAGMA_VRF_ADDRESS: felt252 =
+        0x60c69136b39319547a4df303b6b3a26fab8b2d78de90b6bd215ce82e9cb515c;
+    const ETH_ADDRESS: felt252 = 0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7;
+
+    #[storage]
+    struct Storage {
+        balance: felt252,
+    }
+
+    #[abi(embed_v0)]
+    impl RandomNumberGeneratorContractImpl of super::IRandomNumberGeneratorContract<ContractState> {
+        fn get_random_number_with_block_data(self: @ContractState, entropy_injector: u256) -> u256 {
+            let block_info = get_block_info().unbox();
+            let block_number = block_info.block_number;
+            let block_timestamp = block_info.block_timestamp;
+
+            let random_number = (block_number + block_timestamp);
+            random_number.into() % entropy_injector
+        }
+
+        fn get_random_number_with_keccak256(self: @ContractState, entropy_injector: u256) -> u256 {
+            let block_info = get_block_info().unbox();
+            let block_number = block_info.block_number;
+            let block_timestamp = block_info.block_timestamp;
+
+            let inputs: Array<u256> = array![block_number.into(), block_timestamp.into()];
+
+            let random_number = keccak_u256s_be_inputs(inputs.span()) % entropy_injector;
+            random_number
+        }
+
+        fn get_random_number_with_user_entropy(
+            self: @ContractState, entropy_injector: Array<u256>,
+        ) -> u256 {
+            let number = keccak_u256s_be_inputs(entropy_injector.span());
+            number % *entropy_injector.at(0)
+        }
+
+
+        // IMPORTANT
+        // To generate a random number with Pragma, we have to
+        // 1. make a request for a random number (made with the get_random_number_with_vrf)
+        // 2. Write a receive_random_words function on the callback contract (this one, in this
+        // case) that will be called from the pragma vrf contract to send the created number
+        fn get_random_number_with_vrf(self: @ContractState) -> u64 {
+            // setup Pragma VRF contract
+            let randomness_contract_address = contract_address_const::<PRAGMA_VRF_ADDRESS>();
+            let randomness_dispatcher = IRandomnessDispatcher {
+                contract_address: randomness_contract_address,
+            };
+
+            // Approve the randomness contract to transfer the callback fee
+            // You would need to send some ETH to this contract first to cover the fees
+            let eth_dispatcher = IERC20Dispatcher {
+                contract_address: contract_address_const::<ETH_ADDRESS>() // ETH Contract Address
+            };
+            eth_dispatcher.approve(randomness_contract_address, 2000000000000000);
+
+            // Preparing params for request_random function
+            let seed = 1;
+            let callback_fee_limit = 20; // Max fee to pay for generation (in wei)
+            let publish_delay = 1;
+            let num_words = 1; // number of random numbers that will be generated
+            let calldata: Array<felt252> = array![];
+
+            // submit request for random number
+            let id = randomness_dispatcher
+                .request_random(
+                    seed,
+                    get_contract_address(), // contract with function receive_random_words that will be called when Pragma gets the random number
+                    callback_fee_limit,
+                    publish_delay,
+                    num_words,
+                    calldata,
+                );
+            id // you can store this request id to associate it with an address, for example
+        }
+
+        fn receive_random_words(
+            self: @ContractState,
+            requestor_address: starknet::ContractAddress,
+            request_id: u64, // this is the id generated by the request_random call of above function. So you can associate this response with the request
+            random_words: Span<felt252>,
+            calldata: Array<felt252>,
+        ) -> u256 {
+            // Have to make sure that the caller is the Pragma Randomness Oracle contract
+            let caller_address = get_caller_address();
+            let randomness_contract_address = contract_address_const::<PRAGMA_VRF_ADDRESS>();
+            assert(caller_address == randomness_contract_address, 'caller not randomness contract');
+
+            // Now you can use randomness response
+            let random_word = *random_words.at(0);
+            random_word.into()
+        }
+    }
+}
