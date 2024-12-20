@@ -2,7 +2,7 @@ use core::dict::Felt252Dict;
 use core::num::traits::WrappingAdd;
 use core::nullable::{NullableTrait};
 
-trait MemoryVecTrait<V, T> {
+pub trait MemoryVecTrait<V, T> {
     fn new() -> V;
     fn get(ref self: V, index: usize) -> Option<T>;
     fn at(ref self: V, index: usize) -> T;
@@ -14,9 +14,9 @@ trait MemoryVecTrait<V, T> {
     fn is_empty(self: @V) -> bool;
 }
 
-struct MemoryVec<T> {
-    data: Felt252Dict<Nullable<T>>,
-    len: usize,
+pub struct MemoryVec<T> {
+     pub data: Felt252Dict<Nullable<T>>,
+     pub len: usize,
 }
 
 impl DestructMemoryVec<T, +Drop<T>> of Destruct<MemoryVec<T>> {
@@ -26,10 +26,11 @@ impl DestructMemoryVec<T, +Drop<T>> of Destruct<MemoryVec<T>> {
 }
 
 
-impl MemoryVecImpl<T, +Drop<T>, +Copy<T>> of MemoryVecTrait<MemoryVec<T>, T> {
+pub impl MemoryVecImpl<T, +Drop<T>, +Copy<T>> of MemoryVecTrait<MemoryVec<T>, T> {
     fn new() -> MemoryVec<T> {
         MemoryVec { data: Default::default(), len: 0 }
     }
+
 
     fn get(ref self: MemoryVec<T>, index: usize) -> Option<T> {
         if index < self.len() {
@@ -46,12 +47,14 @@ impl MemoryVecImpl<T, +Drop<T>, +Copy<T>> of MemoryVecTrait<MemoryVec<T>, T> {
 
     fn push(ref self: MemoryVec<T>, value: T) -> () {
         self.data.insert(self.len.into(), NullableTrait::new(value));
-        self.len.wrapping_add(1_usize);
+        self.len += 1;
     }
+
     fn set(ref self: MemoryVec<T>, index: usize, value: T) {
         assert!(index < self.len(), "Index out of bounds");
         self.data.insert(index.into(), NullableTrait::new(value));
     }
+
     fn len(self: @MemoryVec<T>) -> usize {
         *self.len
     }
@@ -75,3 +78,4 @@ impl MemoryVecImpl<T, +Drop<T>, +Copy<T>> of MemoryVecTrait<MemoryVec<T>, T> {
         *self.len == 0
     }
 }
+
