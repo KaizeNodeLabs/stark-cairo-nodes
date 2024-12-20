@@ -79,3 +79,4 @@ pub impl MemoryVecImpl<T, +Drop<T>, +Copy<T>> of MemoryVecTrait<MemoryVec<T>, T>
     }
 }
 
+
