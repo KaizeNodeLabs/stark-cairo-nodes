@@ -1,8 +1,12 @@
-# stark-cairo-nodes 🔗💡
+<img src="https://github.com/user-attachments/assets/f8e180c5-af1e-40e9-8ab0-2b20f0be24f4" alt="DARK LOGO" width="600" />
+
+
+
+# STARKIRO 🔗💡
 
 ## 📖 Overview
 
-**stark-cairo-nodes** is a collection of educational scripts built using the Cairo programming language, specifically designed for the Starknet ecosystem. These scripts are ideal for both beginners and intermediate developers looking to deepen their understanding of Cairo and Starknet concepts.
+**STARKIRO** is a collection of educational scripts built using the Cairo programming language, specifically designed for the Starknet ecosystem. These scripts are ideal for both beginners and intermediate developers looking to deepen their understanding of Cairo and Starknet concepts.
 
 ## ⚙️ Steps to Build and Run Cairo Scripts
 
