@@ -1,4 +1,5 @@
-<img src="https://github.com/user-attachments/assets/f8e180c5-af1e-40e9-8ab0-2b20f0be24f4" alt="DARK LOGO" width="600" />
+![DARK LOGO](https://github.com/user-attachments/assets/b91f4412-9790-4ac1-99af-098dbfbb922f)
+
 
 
 
