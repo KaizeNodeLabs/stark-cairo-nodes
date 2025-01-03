@@ -47,6 +47,6 @@ fn main() {
     );
     println!("Modulus example:      {} % {} = {}\n", number1, number2, modulus(number1, number2));
 
-    println!("Power example: {}^{} = {}\n", number1, number2, pow(number1, number2));
+    println!("Power example:        {} ^ {} = {}\n", number1, number2, pow(number1, number2));
 
 }
