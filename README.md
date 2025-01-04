@@ -112,6 +112,17 @@ scarb cairo-run
 cargo --version
 ```
 
+-**Install asdf**
+Before installing Scarb, you have to install asdf by following the [official asdf docs](https://asdf-vm.com/guide/getting-started.html#getting-started)
+
+- **Verify asdf Installation**
+
+  Confirm that asdf is installed by checking its version:
+
+```bash
+asdf --version
+```
+
 - **Install Scarb**
 Before you can build and test Cairo contracts, you need to have Scarb, the official build tool for Cairo. 
 Install it with these steps:
@@ -119,13 +130,13 @@ Install it with these steps:
 ```bash
 asdf plugin add scarb
 asdf install scarb latest
-asdf global scarb latest
 ```
-- **Install Install SnForge (Cairo Testing Framework)**
-SnForge is the tool used to run unit tests for Cairo contracts in the Starknet ecosystem. Install it by running:
+
+- **Install Starknet Foundry**
 
 ```bash
-pip install snforge
+asdf plugin add starknet-foundry
+asdf install starknet-foundry latest
 ```
 ### 2. ✅ Verify Installations
 After installation, confirm that both tools are correctly installed by running:
