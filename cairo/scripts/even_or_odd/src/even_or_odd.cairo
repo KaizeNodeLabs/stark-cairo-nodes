@@ -11,16 +11,16 @@ fn main() {
     let number_2: u32 = 5;
 
     if is_even(number_1) {
-    println!("condition was true and number_1 = {}", is even!);
+    println!("is even!");
     }
     else {
-     println!("condition was false and number_1 = {}", is odd!);
+     println!("is odd!");
     }
 
     if is_odd(number_2) {
-    println!("condition was true and number_2 = {}", is odd!);
+    println!("is odd!");
     }
     else {
-     println!("condition was false and number_2 = {}", is even!);
+     println!("is even!");
     }
 }

@@ -15,17 +15,17 @@ fn main() {
     let number_2: u32 = 5;
 
     if is_even(number_1) {
-    println!("condition was true and number_1 = {}", is even!);
+    println!("is even!");
     }
     else {
-     println!("condition was false and number_1 = {}", is odd!);
+     println!("is odd!");
     }
 
     if is_odd(number_2) {
-    println!("condition was true and number_2 = {}", is odd!);
+    println!("is odd!");
     }
     else {
-     println!("condition was false and number_2 = {}", is even!);
+     println!("is even!");
     }
 }
 
@@ -136,10 +136,10 @@ For more on Integer data types: https://book.cairo-lang.org/ch02-02-data-types.h
 
 ``` 
 if is_even(number_1) {
-    println!("condition was true and number_1 = {}", is even!);
+    println!("is even!");
 }
 else {
-     println!("condition was false and number_1 = {}", is odd!);
+     println!("is odd!");
 }
 
 ```
@@ -147,10 +147,8 @@ else {
 This block uses the is_even function to check if number_1 is even. If true, it prints that number_1 is even; otherwise, it prints that number_1 is odd.
 The code demonstrates the use of boolean expressions and conditional statements in cairo to determine whether numbers are even or odd. For more on conditional statements: https://book.cairo-lang.org/ch02-05-control-flow.html?highlight=conditional%20statements#using-if-in-a-let-statement
 
-`println!("condition was true and number_1 = {}", is even!);` The `println!` is an inbuilt function that prints out to the console. For more on printing: https://book.cairo-lang.org/ch11-08-printing.html
+`println!("is even!");` The `println!` is an inbuilt function that prints out to the console. For more on printing: https://book.cairo-lang.org/ch11-08-printing.html
 
-`"condition was true and number_1 = {}", is even!`  The curly bracket hold the result. 
-
-When this program is run the output in the console shows: condition was true and 4 = is even
+When this program is run the output in the console shows: is even!
 
 
