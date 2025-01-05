@@ -133,6 +133,7 @@ asdf install scarb latest
 ```
 
 - **Install Starknet Foundry**
+Install SnForge (Cairo Testing Framework) SnForge is the tool used to run unit tests for Cairo contracts in the Starknet ecosystem. Install it by running:
 
 ```bash
 asdf plugin add starknet-foundry
