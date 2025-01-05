@@ -167,7 +167,6 @@ cd path/to/your/cairo-contract-directory
 Use Scarb to compile your Cairo contract by running:
 
 ```bash
-Copy code
 scarb build
 ```
 This will generate the necessary artifacts for your Cairo contract.
